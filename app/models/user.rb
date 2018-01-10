@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   # Direct associations
 
-  has_many   :followers,
+  has_many   :received_followers,
              :class_name => "FriendRequest",
              :foreign_key => "recipient",
              :dependent => :destroy
 
-  has_many   :follows,
+  has_many   :sent_follows,
              :class_name => "FriendRequest",
              :foreign_key => "sender",
              :dependent => :destroy
@@ -18,6 +18,14 @@ class User < ApplicationRecord
              :dependent => :destroy
 
   # Indirect associations
+
+  has_many   :followers,
+             :through => :received_followers,
+             :source => :sender
+
+  has_many   :follows,
+             :through => :sent_follows,
+             :source => :recipient
 
   # Validations
 

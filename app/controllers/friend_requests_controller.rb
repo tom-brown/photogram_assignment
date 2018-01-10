@@ -10,7 +10,7 @@ class FriendRequestsController < ApplicationController
   end
 
   def index
-    @friend_requests = current_user.follows.page(params[:page]).per(10)
+    @friend_requests = current_user.sent_follows.page(params[:page]).per(10)
 
     render("friend_requests/index.html.erb")
   end
