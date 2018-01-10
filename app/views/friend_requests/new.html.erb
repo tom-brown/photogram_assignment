@@ -24,7 +24,7 @@
           Sender
         </label>
 
-        <input type="text" id="sender" name="sender" placeholder="Sender" class="form-control" value="<%= @friend_request.sender %>">
+        <%= select_tag(:sender, options_from_collection_for_select(User.all, :id, :email, @friend_request.sender), :class => "form-control") %>
       </div>
 
       <!-- Label and input for recipient -->
