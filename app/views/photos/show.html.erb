@@ -12,7 +12,13 @@
       <dd><%= @photo.caption %></dd>
 
       <dt>User</dt>
-      <dd><%= @photo.user_id %></dd>
+      <dd>
+        <% if @photo.user.present? %>
+          <a href="/users/<%= @photo.user_id %>">
+            <%= @photo.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 
@@ -20,12 +26,14 @@
       <a href="/photos" class="btn btn-primary">
         Back
       </a>
-      <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user == @photo.user %>
+        <a href="/photos/<%= @photo.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_photo/<%= @photo.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
   </div>
 </div>

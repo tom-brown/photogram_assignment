@@ -9,6 +9,9 @@ class Photo < ApplicationRecord
   has_many   :comments,
              :dependent => :destroy
 
+  belongs_to :user,
+             :counter_cache => true
+
   # Indirect associations
 
   # Validations
