@@ -18,16 +18,16 @@
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for sender -->
-      <input type="hidden" name="sender" value="<%= current_user.id %>">
+      <!-- Label and input for sender_id -->
+      <input type="hidden" name="sender_id" value="<%= current_user.id %>">
 
-      <!-- Label and input for recipient -->
+      <!-- Label and input for recipient_id -->
       <div class="form-group">
-        <label for="recipient" class="control-label">
+        <label for="recipient_id" class="control-label">
           Recipient
         </label>
 
-        <%= select_tag(:recipient, options_from_collection_for_select(User.all, :id, :email, @friend_request.recipient), :class => "form-control") %>
+        <%= select_tag(:recipient_id, options_from_collection_for_select(User.all, :id, :email, @friend_request.recipient_id), :class => "form-control") %>
       </div>
 
       <button class="btn btn-success">

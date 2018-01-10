@@ -10,7 +10,8 @@ class FriendRequestsController < ApplicationController
   end
 
   def index
-    @friend_requests = current_user.follows.page(params[:page]).per(10)
+    @q = current_user.sent_follow_requests.ransack(params[:q])
+      @friend_requests = @q.result(:distinct => true).includes(:recipient, :sender).page(params[:page]).per(10)
 
     render("friend_requests/index.html.erb")
   end
@@ -30,8 +31,8 @@ class FriendRequestsController < ApplicationController
   def create
     @friend_request = FriendRequest.new
 
-    @friend_request.sender = params[:sender]
-    @friend_request.recipient = params[:recipient]
+    @friend_request.sender_id = params[:sender_id]
+    @friend_request.recipient_id = params[:recipient_id]
 
     save_status = @friend_request.save
 
@@ -57,9 +58,7 @@ class FriendRequestsController < ApplicationController
 
   def update
     @friend_request = FriendRequest.find(params[:id])
-
-    @friend_request.sender = params[:sender]
-    @friend_request.recipient = params[:recipient]
+    @friend_request.recipient_id = params[:recipient_id]
 
     save_status = @friend_request.save
 
