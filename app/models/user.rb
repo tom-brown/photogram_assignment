@@ -1,6 +1,11 @@
 class User < ApplicationRecord
   # Direct associations
 
+  has_many   :follows,
+             :class_name => "FriendRequest",
+             :foreign_key => "sender",
+             :dependent => :destroy
+
   has_many   :likes,
              :dependent => :destroy
 
