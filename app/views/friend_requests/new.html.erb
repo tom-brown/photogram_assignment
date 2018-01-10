@@ -33,7 +33,7 @@
           Recipient
         </label>
 
-        <input type="text" id="recipient" name="recipient" placeholder="Recipient" class="form-control" value="<%= @friend_request.recipient %>">
+        <%= select_tag(:recipient, options_from_collection_for_select(User.all, :id, :email, @friend_request.recipient), :class => "form-control") %>
       </div>
 
       <button class="btn btn-success">
